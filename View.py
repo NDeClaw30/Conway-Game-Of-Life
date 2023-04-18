@@ -55,3 +55,17 @@ class GoLView:
     def quit(self):
         self._DS.fill("Black")
         print("Thanks for Playing")
+            def update(self, x):
+        if x == 0:
+            self.b1 = button(self._DS, (self.width // 2, self.height // 2), "Start")
+            pygame.display.update()
+        if x == 1:
+            self._DS.fill((220,220,220))
+            pygame.draw.line(self._DS, (0,0,0), (self.displaywidth,0),(self.displaywidth,self.displayheight))
+            self.draw_cells()
+            self.draw_grid()
+            self.b2 = button(self._DS, (1325,360), "Quit")
+            self.b3 = button(self._DS, (1325,60), "Start")
+            self.b4 = button(self._DS, (1325, 210), "Stop")
+            pygame.display.update()
+    
