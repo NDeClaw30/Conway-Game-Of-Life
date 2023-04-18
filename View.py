@@ -1,4 +1,5 @@
 import pygame
+from Model import GoLModel
 
 def button(screen, position, text):
             font = pygame.font.SysFont("Arial", 50)
@@ -23,6 +24,12 @@ class GoLView:
         self._DS = pygame.display.set_mode((self.width,self.height))
         self.b1 = button(self._DS, (self.width // 2, self.height // 2), "Start")
         self.b2 = button(self._DS, (self.width // 2, self.height //2), "Quit")
+        self.b3 = button(self._DS, (self.width // 2, self.height //2), "Start")
+        self.b4 = button(self._DS, (self.width //2, self.height //2), "Stop")
+        self.model = None
+
+    def setModel(self, model):
+        self.model = model
     
     def draw_grid(self):
         for x in range(0, self.displaywidth, self.blockSize):
@@ -30,6 +37,15 @@ class GoLView:
             rect = pygame.Rect(x, y, self.blockSize, self.blockSize)
             pygame.draw.rect(self._DS, (0,0,0), rect, 1)
 
+
+    def draw_cells(self):
+        grid = self.model.getGrid()
+        for i in range(len(grid)):
+            for j in range(len(grid[i])):
+                if grid[i][j] == 1:
+                    pygame.draw.rect(self._DS, (255,0,0), (j * self.blockSize, i * self.blockSize, self.blockSize, self.blockSize))
+
+    
 
     def start(self):
         self._DS.fill("white")
@@ -47,7 +63,10 @@ class GoLView:
         if x == 1:
             self._DS.fill((220,220,220))
             pygame.draw.line(self._DS, (0,0,0), (self.displaywidth,0),(self.displaywidth,self.displayheight))
+            self.draw_cells()
             self.draw_grid()
             self.b2 = button(self._DS, (1325,360), "Quit")
+            self.b3 = button(self._DS, (1325,60), "Start")
+            self.b4 = button(self._DS, (1325, 210), "Stop")
             pygame.display.update()
     
